@@ -1,0 +1,44 @@
+from tkinter import *
+
+root = Tk()
+root.title("To-Do List")
+
+task_entry = Entry(root, width=50)
+task_entry.pack()
+
+add_button = Button(root, text="Add Task")
+add_button.pack()
+
+task_list = Listbox(root, width=30, height=5)
+task_list.pack()
+
+complete_button = Button(root, text="Mark Complete")
+complete_button.pack()
+
+update_button = Button(root, text="Update Task")
+update_button.pack()
+
+delete_button = Button(root, text="Remove Task")
+delete_button.pack()
+
+def add_task():
+    task_list.insert(END, task_entry.get())
+    task_entry.delete(0, END)
+
+def complete_task():
+    task_list.itemconfig(task_list.curselection(), fg="gray")
+
+def update_task():
+    task_list.delete(ANCHOR)
+    task_list.insert(ANCHOR, task_entry.get())
+    task_entry.delete(0, END)
+
+def delete_task():
+    task_list.delete(ANCHOR)
+
+add_button.config(command=add_task)
+complete_button.config(command=complete_task)
+update_button.config(command=update_task)
+delete_button.config(command=delete_task)
+
+root.mainloop()
